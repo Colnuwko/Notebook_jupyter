@@ -3,15 +3,20 @@ import os
 from typing import Optional
 
 
-
+def iterator (name: str):
+    names = os.listdir(os.path.join("Dataset", name))
+    for i in range (len(names)):
+        yield os.path.join("Dataset", name, names [i]) 
+    return None
+    
 class Iterator:
-    def __init__(self, way_to_csv_file: str, name_class: int):
-        self.name_class = name_class
+    def __init__(self, way_to_csv_file: str, name_class: str):
+        self.name_class = str(name_class)
         self.list = []
         self.way_to_file = way_to_csv_file
         self.counter = 0
 
-        file = open(self.way_to_file, "r", encoding="utf-8")
+        file = open(self.way_to_file, "r", encoding='latin-1')
         reader = csv.reader(file, delimiter="\t")
         for row in reader:
             if str(row)[-3]==self.name_class:
